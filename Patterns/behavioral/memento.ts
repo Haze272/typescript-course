@@ -19,6 +19,10 @@ class Originator {
         this.state = _state;
         console.log('Создатель: "Моё состояние поменялось на ' + this.state + '"');
     }
+
+    public showState() {
+        console.log(this.state);
+    }
 }
 
 class Memento {
@@ -53,7 +57,7 @@ class Caretaker {
             return;
         }
 
-        let memento = this.mementos.pop();
+        let memento: Memento = this.mementos.pop();
 
         console.log('Опекун: "Восстанавливаю состояние до: ' + memento?.getState() + '"');
         this.originator.restore(memento);
@@ -63,3 +67,12 @@ class Caretaker {
 
 const originator = new Originator('Super-duper-super-puper-super.');
 const caretaker = new Caretaker(originator);
+
+originator.showState();
+caretaker.addMemento();
+
+originator.changeState('other state');
+originator.showState();
+
+caretaker.undoMemento();
+originator.showState();
