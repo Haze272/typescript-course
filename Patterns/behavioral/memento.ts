@@ -7,7 +7,7 @@ class Originator {
     }
 
     public save(): Memento {
-        return new ConcreteMemento(this.state);
+        return new Memento(this.state);
     }
 
     public restore(memento: Memento): void {
@@ -48,14 +48,14 @@ class Caretaker {
         this.mementos.push(this.originator.save());
     }
 
-    public undoMemento(): Memento {
+    public undoMemento(): void {
         if (!this.mementos.length) {
             return;
         }
 
         let memento = this.mementos.pop();
 
-        console.log('Опекун: "Восстанавливаю состояние до: ' + memento.getName() + '"');
+        console.log('Опекун: "Восстанавливаю состояние до: ' + memento?.getState() + '"');
         this.originator.restore(memento);
     }
 }
